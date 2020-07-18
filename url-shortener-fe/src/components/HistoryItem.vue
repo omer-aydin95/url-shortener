@@ -47,6 +47,9 @@ export default Vue.extend({
 
 #history-item > div:last-child {
     text-align: end;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
 }
 
 button {

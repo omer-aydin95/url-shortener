@@ -6,4 +6,6 @@ export default interface AppDao {
     getShortenedUrl(realUrl: string, callback: Function);
 
     saveShortenedUrl(shortenedUrl: ShortenedUrl, callback: Function);
+
+    deleteShortenedUrl(id: string, callback: Function);
 }

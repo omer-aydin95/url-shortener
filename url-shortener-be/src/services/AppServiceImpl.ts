@@ -3,6 +3,7 @@ import AppService from "./AppService";
 import ShortenedUrl from "../models/ShortenedUrl";
 import AppConstants from "../constants/AppConstants";
 import OperationStatus from "../constants/OperationStatus";
+import AppUtils from "../utils/AppUtils";
 
 export default class AppServiceImpl implements AppService {
     private appDao!: AppDao;
@@ -26,7 +27,7 @@ export default class AppServiceImpl implements AppService {
                 } else {
                     const shortenedUrl: ShortenedUrl = new ShortenedUrl();
                     shortenedUrl.setRealUrl(realUrl);
-                    shortenedUrl.setShortenedUrl(this.getRandomShort(AppConstants.SHORTENING_SIZE));
+                    shortenedUrl.setShortenedUrl(AppUtils.getRandomShort(AppConstants.SHORTENING_SIZE));
                     shortenedUrl.setNumberOfVisit(0);
                     const currentDate: Date = new Date(Date.now());
                     shortenedUrl.setCreateDate(currentDate);
@@ -42,16 +43,7 @@ export default class AppServiceImpl implements AppService {
         });
     }
 
-    private getRandomShort(numberOfChar: number): string {
-        let chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-        let short = "";
-    
-        for(let i = 0; i < numberOfChar; i++) {
-            let randomIndex = Math.floor(Math.random() * (chars.length + 1));
-    
-            short += chars.charAt(randomIndex);
-        }
-    
-        return short;
+    deleteShortenedUrl(id: string, callback: Function) {
+        this.appDao.deleteShortenedUrl(id, callback);
     }
 }

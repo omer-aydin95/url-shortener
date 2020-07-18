@@ -17,6 +17,7 @@ import History from "./components/History.vue";
 import ShortenedUrl from "./models/ShortenedUrl";
 import Dialog from "./components/Dialog.vue";
 import UrlShortenerApi from "./apis/UrlShortenerApi";
+import RequestResults from "./constants/RequestResults";
 
 export default Vue.extend({
 	name: "App",
@@ -31,8 +32,13 @@ export default Vue.extend({
 		},
 
 		deleteHistoryItem(shortenedUrl: ShortenedUrl) {
-			// TODO: http request
-			this.shortenedUrls = this.shortenedUrls.filter(e => e.getId() != shortenedUrl.getId());
+			this.urlShortenerApi.deleteShortUrl(shortenedUrl.getId(), (requestResult: RequestResults) => {
+				if(requestResult == RequestResults.SUCCESS) {
+					this.shortenedUrls = this.shortenedUrls.filter(e => e.getId() != shortenedUrl.getId());
+				} else {
+					this.openDialog("Someting went wrong!");
+				}
+			});
 		},
 
 		closeDialog() {
@@ -48,13 +54,12 @@ export default Vue.extend({
 		return {
 			shortenedUrls: Array<ShortenedUrl>(),
 			isDialogOpened: false,
-			dialogMsg: ""
+			dialogMsg: "",
+			urlShortenerApi: new UrlShortenerApi()
 		};
 	},
 	created() {
-		const urlShortenerApi: UrlShortenerApi = new UrlShortenerApi();
-
-		urlShortenerApi.getAllShortenedUrls(
+		this.urlShortenerApi.getAllShortenedUrls(
 			(shortenedUrls: Array<ShortenedUrl>) => {
 				this.shortenedUrls = shortenedUrls;
 			}

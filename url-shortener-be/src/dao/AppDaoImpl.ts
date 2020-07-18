@@ -5,6 +5,7 @@ import AppConstants from "../constants/AppConstants";
 import OperationStatus from "../constants/OperationStatus";
 import CollectionConstants from "../constants/CollectionConstants";
 import sanitize from "mongo-sanitize";
+import {ObjectId} from "mongodb";
 
 export default class AppDaoImpl implements AppDao {
     private dbClient!: DBClient;
@@ -109,6 +110,32 @@ export default class AppDaoImpl implements AppDao {
                 console.error(err);
 
                 callback(new ShortenedUrl(), OperationStatus.FAIL);
+            }
+        );
+    }
+
+    deleteShortenedUrl(id: string, callback: Function) {
+        this.dbClient.getClient().connect().then(
+            (client) => {
+                const coll = client.db(this.dbClient.getConnectedDB()).collection(CollectionConstants.SHORTENED_URLS);
+
+                coll.deleteOne({_id: new ObjectId(sanitize(id))}).then(
+                    (res) => {
+                        callback(OperationStatus.SUCCESS);
+                    }
+                ).catch(
+                    (err) => {
+                        console.error(err);
+
+                        callback(OperationStatus.FAIL);
+                    }
+                );
+            }
+        ).catch(
+            (err) => {
+                console.error(err);
+
+                callback(OperationStatus.FAIL);
             }
         );
     }

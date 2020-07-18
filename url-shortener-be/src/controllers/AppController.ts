@@ -43,4 +43,18 @@ APP_CONTROLLER.get(
     }
 );
 
+APP_CONTROLLER.delete(
+    "/short-url", (req, res) => {
+        APP_SERVICE.deleteShortenedUrl(req.query.id.toString(), (operationStatus: OperationStatus) => {
+            if(operationStatus == OperationStatus.SUCCESS) {
+                res.status(200);
+            } else {
+                res.status(500);
+            }
+
+            res.json({});
+        });
+    }
+);
+
 export default APP_CONTROLLER;

@@ -1,5 +1,6 @@
 import ShortenedUrl from "../models/ShortenedUrl";
 import axios from "axios";
+import RequestResults from "../constants/RequestResults";
 
 export default class UrlShortenerApi {
     private readonly BASE_URL: string = "http://localhost:8081";
@@ -51,6 +52,28 @@ export default class UrlShortenerApi {
                 console.error(err);
 
                 callback(null);
+            }
+        );
+    }
+
+    public deleteShortUrl(id: string, callback: Function) {
+        axios.delete(this.BASE_URL + this.API_VERSION + this.SHORT_URL, {
+            params: {
+                id: id
+            }
+        }).then(
+            (res) => {
+                if(res.status == 200) {
+                    callback(RequestResults.SUCCESS);
+                } else {
+                    callback(RequestResults.FAIL);
+                }
+            }
+        ).catch(
+            (err) => {
+                console.error(err);
+
+                callback(RequestResults.FAIL);
             }
         );
     }
