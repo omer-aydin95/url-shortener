@@ -63,17 +63,39 @@ form {
 input {
     width: 100%;
     outline: none;
+    height: 30px;
+    font-family: 'Roboto Condensed', sans-serif;
+    border-radius: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 15px;
+    border: 1px solid black;
 }
 
 button {
     width: 100px;
     min-width: 100px;
     margin-left: 10px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 15px;
+    border-radius: 50px;
+    border: 1px solid black;
+    outline: none;
+    background-color: white;
+}
+
+button:hover {
+    background-color: rgb(225, 225, 225);
+    cursor: pointer;
+}
+
+button:active {
+    background-color: rgb(205, 205, 205);
 }
 
 .error {
     border: 1px solid red;
-    border-radius: 2px;
+    border-radius: 50px;
 }
 
 @media (max-width: 650px) {
@@ -85,6 +107,7 @@ button {
     button {
         margin-left: 0;
         margin-top: 10px;
+        height: 34px;
     }
 }
 </style>

@@ -2,8 +2,8 @@
     <div>
         <h2>History</h2>
 
-        <template v-for="shortenedUrl in shortenedUrls">
-            <HistoryItem v-on:DELETE_HISTORY_ITEM="deleteHistoryItem" v-bind:key="shortenedUrl.getId()" v-bind:shortenedUrl="shortenedUrl" />
+        <template v-for="(shortenedUrl, index) in shortenedUrls">
+            <HistoryItem v-on:DELETE_HISTORY_ITEM="deleteHistoryItem" v-bind:key="shortenedUrl.getId()" v-bind:shortenedUrl="shortenedUrl" v-bind:index="index" />
         </template>
     </div>
 </template>
@@ -38,5 +38,6 @@ div {
 
 h2 {
     width: 100%;
+    margin-top: 30px;
 }
 </style>
