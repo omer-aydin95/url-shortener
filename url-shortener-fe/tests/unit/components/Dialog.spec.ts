@@ -31,7 +31,11 @@ describe("Dialog Component Tests", () => {
 		expect(wrapper.vm.$props.msg).toBe(testMsg);
 	});
 
-	test(`Component emits ${AppEvents.CLOSE_DIALOG} event when button clicked`, async () => {
+	test(`Component displays the '${testMsg}' message`, () => {
+		expect(wrapper.text()).toContain(testMsg);
+	});
+
+	test(`Component emits '${AppEvents.CLOSE_DIALOG}' event when button clicked`, async () => {
 		const btn = wrapper.find("button");
 		btn.trigger("click");
 
