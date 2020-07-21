@@ -1,16 +1,5 @@
-import express from "express";
-import bodyParser from "body-parser";
 import AppConstants from "./constants/AppConstants";
-import AppMiddleware from "./middlewares/AppMiddleware";
-import AppController from "./controllers/AppController";
-
-const APP = express();
-
-APP.use(bodyParser.urlencoded({extended: false}));
-APP.use(bodyParser.json());
-APP.use("/", AppMiddleware);
-
-APP.use("/v1", AppController);
+import APP from "./app";
 
 APP.listen(AppConstants.APP_PORT, () => {
     console.info(`App is listening the port ${AppConstants.APP_PORT}`);
