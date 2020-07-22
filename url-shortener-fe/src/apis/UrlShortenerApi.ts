@@ -29,7 +29,7 @@ export default class UrlShortenerApi {
             (err) => {
                 console.error(err);
 
-                callback(new Array<ShortenedUrl>());
+                callback(null);
             }
         );
     }

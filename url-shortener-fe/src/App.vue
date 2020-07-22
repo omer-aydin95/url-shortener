@@ -74,13 +74,19 @@ export default Vue.extend({
 	created() {
 		this.urlShortenerApi.getAllShortenedUrls(
 			(shortenedUrls: Array<ShortenedUrl>) => {
-				if(shortenedUrls.length > 0) {
-					this.showInfoMsg = false;
+				if(shortenedUrls == null) {
+					this.dialogMsg = "Something went wrong!";
+					this.isDialogOpened = true;
+					this.infoMsg = "There are not any shortened urls...";
 				} else {
-					this.infoMsg = "There are not any shortened urls..."
-				}
+					if(shortenedUrls.length > 0) {
+						this.showInfoMsg = false;
+					} else {
+						this.infoMsg = "There are not any shortened urls...";
+					}
 
-				this.shortenedUrls = shortenedUrls;
+					this.shortenedUrls = shortenedUrls;
+				}
 			}
 		);
 	}

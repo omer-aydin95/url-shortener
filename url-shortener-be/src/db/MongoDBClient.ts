@@ -26,7 +26,7 @@ export default class MongoDBClient implements DBClient {
     }
 
     private createClient() {
-        const connStr = `mongodb+srv://${DBConfig.USERNAME}:${DBConfig.PASSWORD}@cluster0.42izo.mongodb.net/${DBConfig.DB_NAME}?retryWrites=true&w=majority`;
+        const connStr = `mongodb://${DBConfig.HOST}:${DBConfig.PORT}/${DBConfig.DB_NAME}?authSource=admin`;
         
         return new MongoClient(connStr, {useUnifiedTopology: true});
     }

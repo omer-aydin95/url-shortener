@@ -1,0 +1,38 @@
+version: "3"
+services:
+ mongo-db:
+  image: mongo:4.2.8-bionic
+  container_name: app-mongo-db
+  volumes:
+   - db-volume:/data/db
+  networks:
+   - app-network
+
+ app-be:
+  build: ./url-shortener-be
+  container_name: url-shortener-be 
+  ports:
+   - 8081:8081
+  depends_on:
+   - mongo-db
+  links:
+   - mongo-db
+  networks:
+   - app-network
+
+ app-fe:
+  build: ./url-shortener-fe
+  container_name: url-shortener-fe
+  ports:
+   - 8080:8080
+  depends_on:
+   - app-be
+  links:
+   - app-be
+
+volumes:
+ db-volume:
+
+networks:
+ app-network:
+  driver: bridge

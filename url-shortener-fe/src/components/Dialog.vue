@@ -34,4 +34,25 @@ export default Vue.extend({
     align-items: center;
     justify-content: center;
 }
+
+button {
+    width: 100px;
+    min-width: 100px;
+    margin-left: 10px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 15px;
+    border-radius: 50px;
+    border: 1px solid black;
+    outline: none;
+    background-color: white;
+}
+
+button:hover {
+    background-color: rgb(225, 225, 225);
+    cursor: pointer;
+}
+
+button:active {
+    background-color: rgb(205, 205, 205);
+}
 </style>
